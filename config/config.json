@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "26031997enquijos",
+    "database": "music_tour_api",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "26031997enquijos",
+    "database": "music_tour_api_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "26031997enquijos",
+    "database": "music_tour_api_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
