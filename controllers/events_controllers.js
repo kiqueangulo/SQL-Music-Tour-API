@@ -1,12 +1,12 @@
 const events = require('express').Router();
-const { Event } = require('../models/event.js');
+const { Event } = require('../models');
 const { Op } = require('sequelize');
 
 events.get('/', async (req, res) => {
     try {
         const foundEvents = await Event.findAll({
             where: {
-                name: { [Op.like]: `${req.query.name ?? ''}` }
+                name: { [Op.like]: `%${req.query.name ?? ''}%` }
             },
             order: [ [ 'date', 'ASC' ] ]
         });
