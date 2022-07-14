@@ -18,6 +18,8 @@ app.get('/', async (req, res) => {
 
 // BANDS ROUTES
 app.use('/bands', require('./controllers/bands_controllers.js'));
+app.use('/events', require('./controllers/events_controllers.js'));
+app.use('/stages', require('./controllers/stages_controllers.js'));
 
 // LISTEN
 db.sequelize.sync().then(() => {

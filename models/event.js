@@ -8,8 +8,21 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+    static associate({ Stage, Stage_Events, Meet_Greet, Set_Time }) {
+      // Many to many relationship
+      Event.belongsToMany(Stage, {
+        foreignKey: 'event_id',
+        as: 'stages',
+        through: Stage_Events
+      });
+
+      Event.hasMany(Set_Time, {
+        foreignKey: 'event_id'
+      });
+
+      Event.hasMany(Meet_Greet, {
+        foreignKey: 'event_id'
+      });
     }
   }
 
@@ -25,21 +38,24 @@ module.exports = (sequelize, DataTypes) => {
     },
     date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     },
     start_time: {
-      type: DataTypes.TIME,
-      allowNull: false
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     },
     end_time: {
-      type: DataTypes.TIME,
-      allowNull: false
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     }
   },
   {
     sequelize,
     modelName: 'Event',
-    tableName: 'event',
+    tableName: 'events',
     timestamps: false
   });
 

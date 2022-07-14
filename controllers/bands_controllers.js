@@ -4,7 +4,8 @@ const { Op } = require('sequelize');
 
 bands.get('/', async (req, res) => {
     try {
-        const foundBands = await Band.findAll({
+        const foundBands = await Band.findAndCountAll({
+            limit: req.query.size ?? 3,
             order: [ [ 'available_start_time', 'ASC' ] ],
             where: {
                 name: { [Op.like]: `%${req.query.name ?? ''}%` }
@@ -46,9 +47,8 @@ bands.put('/:id', async (req, res) => {
         const updatedBand = await Band.update(
             req.body,
             {
-                where: 
-                    { band_id: req.params.id },
-                    returning:true
+                where: { band_id: req.params.id },
+                returning:true
             }
         );
 
@@ -65,7 +65,7 @@ bands.delete('/:id', async (req, res) => {
         });
 
         res.status(200).json({
-            message: `${deletedBands} band(s) successfuly updated`
+            message: `${deletedBands} band(s) successfuly deleted`
         });
     } catch (err) {
         res.status(500).json(err);
